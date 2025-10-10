@@ -166,9 +166,20 @@ function PokemonDetails({ pokemonName }) {
                         <div className={style.evolutionChain}>
                             {evolutionChain.map((evo, index) => (
                                 <div key={index} className={style.evolutionItem}>
-                                    <span className={style.evolutionName}>
+                                    <button
+                                        className={`${style.evolutionName} ${evo.name === pokemon?.name ? style.currentEvolution : ''}`}
+                                        onClick={() => {
+                                            if (evo.name !== pokemon?.name) {
+                                                window.location.hash = `#${evo.name}`;
+                                                // Trigger parent component to update
+                                                const event = new CustomEvent('pokemon-change', { detail: evo.name });
+                                                window.dispatchEvent(event);
+                                            }
+                                        }}
+                                        disabled={evo.name === pokemon?.name}
+                                    >
                                         {evo.name.charAt(0).toUpperCase() + evo.name.slice(1)}
-                                    </span>
+                                    </button>
                                     {index < evolutionChain.length - 1 && (
                                         <span className={style.evolutionArrow}>→</span>
                                     )}

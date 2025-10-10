@@ -10,6 +10,21 @@ function Pokedex() {
         setSearchQuery(userInput.toLowerCase());
     };
 
+    // Listen for evolution chain clicks
+    useEffect(() => {
+        const handlePokemonChange = (event) => {
+            const newPokemon = event.detail;
+            setUserInput(newPokemon);
+            setSearchQuery(newPokemon.toLowerCase());
+        };
+
+        window.addEventListener('pokemon-change', handlePokemonChange);
+        
+        return () => {
+            window.removeEventListener('pokemon-change', handlePokemonChange);
+        };
+    }, []);
+
     return(
         <>
             <div className={style.pokedexContainer}>
