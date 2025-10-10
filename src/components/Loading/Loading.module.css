@@ -1,63 +1,68 @@
 .loadingContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem;
-  min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    min-height: 400px;
 }
 
 .pokeball {
-  width: 60px;
-  height: 60px;
-  position: relative;
-  animation: spin 1s linear infinite;
+    width: clamp(50px, 15vw, 80px);
+    height: clamp(50px, 15vw, 80px);
+    position: relative;
+    animation: spin 1s linear infinite;
 }
 
 .pokeballTop {
-  width: 60px;
-  height: 30px;
-  background-color: #ee1515;
-  border-radius: 60px 60px 0 0;
-  position: absolute;
-  top: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #ee1515;
+    border-radius: 100% 100% 0 0;
+    position: absolute;
+    top: 0;
+    border-bottom: clamp(2px, 0.5vw, 4px) solid #333;
 }
 
 .pokeballBottom {
-  width: 60px;
-  height: 30px;
-  background-color: #f5f5f5;
-  border-radius: 0 0 60px 60px;
-  position: absolute;
-  bottom: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #f5f5f5;
+    border-radius: 0 0 100% 100%;
+    position: absolute;
+    bottom: 0;
+    border-top: clamp(2px, 0.5vw, 4px) solid #333;
 }
 
 .pokeballButton {
-  width: 18px;
-  height: 18px;
-  background-color: #fff;
-  border: 3px solid #333;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+    width: clamp(14px, 4vw, 24px);
+    height: clamp(14px, 4vw, 24px);
+    background-color: #fff;
+    border: clamp(2px, 0.5vw, 4px) solid #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    box-shadow: 0 0 0 clamp(2px, 0.5vw, 4px) #fff;
 }
 
 .loadingText {
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  color: #555;
-  animation: pulse 1.5s ease-in-out infinite;
+    margin-top: 2rem;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: #fff;
+    font-weight: 700;
+    animation: pulse 1.5s ease-in-out infinite;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
 }

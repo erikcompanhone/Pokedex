@@ -53,7 +53,7 @@ function PokemonDetails({ pokemonName }) {
                 </div>
 
                 <div className={style.pokemonType}>
-                    Types:
+                    <div className={style.sectionTitle}>Types</div>
                         {pokemon?.types?.map((typeObj, index) => (   
                                 <div key={index} className={style.typeContainer}>
                                     {typeObj?.type?.name} <img src={`/types/${typeObj?.type?.name}.svg`} alt={typeObj?.type?.name} />
@@ -61,12 +61,15 @@ function PokemonDetails({ pokemonName }) {
                         ))}
                 </div>
 
-                <p className={style.pokemonHeight}>Height: {((pokemon?.height || 0) * 0.1).toFixed(1)} Meters</p>
-                
-                <p className={style.pokemonWeight}>Weight: {((pokemon?.weight || 0) * 0.1).toFixed(1)} Kg</p>
+                <div className={style.physicalStats}>
+                    <div className={style.sectionTitle}>Physical Stats</div>
+                    <p className={style.pokemonHeight}>Height: {((pokemon?.height || 0) * 0.1).toFixed(1)} Meters</p>
+                    <p className={style.pokemonWeight}>Weight: {((pokemon?.weight || 0) * 0.1).toFixed(1)} Kg</p>
+                </div>
                 
                 <div className={style.pokemonAbilities}>
-                    Abilities: {pokemon?.abilities?.map((abilityObj, index) => (   
+                    <div className={style.sectionTitle}>Abilities</div>
+                    {pokemon?.abilities?.map((abilityObj, index) => (   
                                     <div key={index} className={style.pokemonAbility}>{abilityObj?.ability?.name}</div>
                         ))}
                 </div>
