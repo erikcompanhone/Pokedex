@@ -9,6 +9,7 @@ import axios from 'axios';
 export const usePokemon = (pokemonName) => {
   const [pokemon, setPokemon] = useState(null);
   const [pokemonDescription, setPokemonDescription] = useState(null);
+  const [evolutionChain, setEvolutionChain] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -16,6 +17,7 @@ export const usePokemon = (pokemonName) => {
     if (!pokemonName) {
       setPokemon(null);
       setPokemonDescription(null);
+      setEvolutionChain(null);
       setError(null);
       return;
     }
@@ -36,6 +38,26 @@ export const usePokemon = (pokemonName) => {
         
         setPokemon(pokemonResponse.data);
         setPokemonDescription(speciesResponse.data);
+
+        // Fetch evolution chain if available
+        if (speciesResponse.data?.evolution_chain?.url) {
+          const evolutionUrl = speciesResponse.data.evolution_chain.url;
+          const evolutionResponse = await axios.get(evolutionUrl);
+          
+          // Parse evolution chain
+          const chain = [];
+          let current = evolutionResponse.data.chain;
+          
+          while (current) {
+            chain.push({
+              name: current.species.name,
+              url: current.species.url
+            });
+            current = current.evolves_to[0];
+          }
+          
+          setEvolutionChain(chain);
+        }
       } catch (err) {
         const errorMessage = err.response?.status === 404 
           ? 'Pokémon not found. Please check the name and try again.'
@@ -44,6 +66,7 @@ export const usePokemon = (pokemonName) => {
         setError(errorMessage);
         setPokemon(null);
         setPokemonDescription(null);
+        setEvolutionChain(null);
         console.error('Error fetching Pokemon:', err);
       } finally {
         setLoading(false);
@@ -53,5 +76,5 @@ export const usePokemon = (pokemonName) => {
     fetchDetails();
   }, [pokemonName]);
 
-  return { pokemon, pokemonDescription, loading, error };
+  return { pokemon, pokemonDescription, evolutionChain, loading, error };
 };

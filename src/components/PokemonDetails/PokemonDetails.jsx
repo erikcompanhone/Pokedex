@@ -1,9 +1,12 @@
 import style from './PokemonDetails.module.css';
 import { usePokemon } from '../../hooks/usePokemon';
 import Loading from '../Loading/Loading';
+import { useState } from 'react';
 
 function PokemonDetails({ pokemonName }) {
-    const { pokemon, pokemonDescription, loading, error } = usePokemon(pokemonName);
+    const { pokemon, pokemonDescription, evolutionChain, loading, error } = usePokemon(pokemonName);
+    const [isShiny, setIsShiny] = useState(false);
+    const [isPlayingCry, setIsPlayingCry] = useState(false);
 
     if (loading) {
         return <Loading />;
@@ -17,16 +20,98 @@ function PokemonDetails({ pokemonName }) {
         return null;
     }
 
+    // Get the sprite based on shiny state
+    const currentSprite = isShiny 
+        ? pokemon?.sprites?.front_shiny 
+        : pokemon?.sprites?.front_default;
+
+    // Handle cry sound
+    const playCry = () => {
+        if (pokemon?.cries?.latest) {
+            setIsPlayingCry(true);
+            const audio = new Audio(pokemon.cries.latest);
+            audio.play();
+            audio.onended = () => setIsPlayingCry(false);
+        }
+    };
+
     return(
         <>
             <div className={style.firstContainer}>
+                {/* Badges Section */}
+                <div className={style.badgesContainer}>
+                    {pokemonDescription?.generation?.name && (
+                        <span className={style.generationBadge}>
+                            {pokemonDescription.generation.name.replace('generation-', 'Gen ').toUpperCase()}
+                        </span>
+                    )}
+                    {pokemonDescription?.is_legendary && (
+                        <span className={`${style.specialBadge} ${style.legendary}`}>
+                            ⭐ Legendary
+                        </span>
+                    )}
+                    {pokemonDescription?.is_mythical && (
+                        <span className={`${style.specialBadge} ${style.mythical}`}>
+                            ✨ Mythical
+                        </span>
+                    )}
+                </div>
+
                 <div className={style.pokemonNumber}>#{pokemon?.id}</div>
                 <div className={style.pokemonName}>
                     {pokemon?.name ? pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) : 'Unknown'}
                 </div>
-                <img className={style.pokemonImage} src={pokemon?.sprites?.front_default} alt={pokemon?.name || 'Pokemon'}/>
+
+                {/* Image with Shiny Toggle */}
+                <div className={style.imageContainer}>
+                    <img 
+                        className={style.pokemonImage} 
+                        src={currentSprite} 
+                        alt={pokemon?.name || 'Pokemon'}
+                    />
+                    <button 
+                        className={`${style.shinyToggle} ${isShiny ? style.active : ''}`}
+                        onClick={() => setIsShiny(!isShiny)}
+                        title={isShiny ? "Show Normal" : "Show Shiny"}
+                    >
+                        ✨ {isShiny ? 'Normal' : 'Shiny'}
+                    </button>
+                    {pokemon?.cries?.latest && (
+                        <button 
+                            className={`${style.cryButton} ${isPlayingCry ? style.playing : ''}`}
+                            onClick={playCry}
+                            disabled={isPlayingCry}
+                            title="Play Cry"
+                        >
+                            🔊 {isPlayingCry ? 'Playing...' : 'Cry'}
+                        </button>
+                    )}
+                </div>
+
                 <div className={style.pokemonDescription}>
                     Description: {pokemonDescription?.flavor_text_entries?.find(entry => entry.language.name === 'en')?.flavor_text || 'No description available'}
+                </div>
+
+                {/* Additional Info Cards */}
+                <div className={style.infoCards}>
+                    {pokemon?.base_experience && (
+                        <div className={style.infoCard}>
+                            <span className={style.infoLabel}>Base XP</span>
+                            <span className={style.infoValue}>{pokemon.base_experience}</span>
+                        </div>
+                    )}
+                    {pokemonDescription?.color?.name && (
+                        <div className={style.infoCard}>
+                            <span className={style.infoLabel}>Color</span>
+                            <span className={style.infoValue}>{pokemonDescription.color.name}</span>
+                        </div>
+                    )}
+                    {pokemonDescription?.habitat?.name && (
+                        <div className={style.infoCard}>
+                            <span className={style.infoLabel}>Habitat</span>
+                            <span className={style.infoValue}>{pokemonDescription.habitat.name}</span>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -73,6 +158,25 @@ function PokemonDetails({ pokemonName }) {
                                     <div key={index} className={style.pokemonAbility}>{abilityObj?.ability?.name}</div>
                         ))}
                 </div>
+
+                {/* Evolution Chain */}
+                {evolutionChain && evolutionChain.length > 1 && (
+                    <div className={style.evolutionSection}>
+                        <div className={style.sectionTitle}>Evolution Chain</div>
+                        <div className={style.evolutionChain}>
+                            {evolutionChain.map((evo, index) => (
+                                <div key={index} className={style.evolutionItem}>
+                                    <span className={style.evolutionName}>
+                                        {evo.name.charAt(0).toUpperCase() + evo.name.slice(1)}
+                                    </span>
+                                    {index < evolutionChain.length - 1 && (
+                                        <span className={style.evolutionArrow}>→</span>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );
