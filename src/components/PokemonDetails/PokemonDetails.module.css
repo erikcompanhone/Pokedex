@@ -5,6 +5,9 @@
     padding: 2rem 1rem;
     border-bottom: 2px solid #e0e0e0;
     background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Badges */
@@ -139,6 +142,8 @@
     color: #4a5568;
     padding: 0 1rem;
     margin-bottom: 2rem;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 .infoCards {
@@ -159,6 +164,9 @@
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .infoCard:hover {
@@ -189,12 +197,28 @@
     gap: 2rem;
     padding: 2rem 1rem;
     background: #fff;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.secondContainer > * {
+    min-width: 0;
+    max-width: 100%;
 }
 
 .pokemonStats {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+}
+
+.pokemonStats .sectionTitle {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 0.5rem;
 }
 
 .stat {
@@ -206,6 +230,10 @@
     font-weight: 600;
     box-shadow: 0 4px 10px rgba(42, 117, 187, 0.3);
     transition: transform 0.2s ease;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    word-wrap: break-word;
 }
 
 .stat:hover {
@@ -217,6 +245,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
 }
 
 .sectionTitle {
@@ -241,6 +271,9 @@
     font-weight: 600;
     font-size: clamp(0.95rem, 2vw, 1.1rem);
     color: #2d3748;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .typeContainer:hover {
@@ -257,6 +290,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
 }
 
 .pokemonHeight,
@@ -273,12 +308,17 @@
     align-items: center;
     justify-content: center;
     min-height: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .pokemonAbilities {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
 }
 
 .pokemonAbility {
@@ -291,6 +331,10 @@
     font-weight: 600;
     box-shadow: 0 4px 10px rgba(255, 203, 5, 0.3);
     transition: transform 0.2s ease;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    word-wrap: break-word;
 }
 
 .pokemonAbility:hover {
@@ -302,48 +346,72 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
 }
 
 .evolutionChain {
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0;
     padding: 1.5rem;
     background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
 }
 
 .evolutionItem {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #2A75BB 0%, #3C5AA6 100%);
+    color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(42, 117, 187, 0.3);
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+}
+
+.evolutionItem:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(42, 117, 187, 0.4);
+}
+
+.evolutionItem:disabled {
+    cursor: default;
+    background: linear-gradient(135deg, #FFCB05 0%, #FFD93D 100%);
+    box-shadow: 0 4px 12px rgba(255, 203, 5, 0.4);
+}
+
+.evolutionSprite {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
 }
 
 .evolutionName {
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #2A75BB 0%, #3C5AA6 100%);
-    color: white;
-    border-radius: 25px;
-    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    font-size: clamp(1rem, 2vw, 1.3rem);
     font-weight: 700;
-    box-shadow: 0 2px 8px rgba(42, 117, 187, 0.3);
-    transition: all 0.2s ease;
     text-transform: capitalize;
-}
-
-.evolutionName:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(42, 117, 187, 0.4);
+    flex: 1;
+    text-align: left;
 }
 
 .evolutionArrow {
     font-size: clamp(1.5rem, 3vw, 2rem);
     color: #4a5568;
     font-weight: bold;
+    text-align: center;
+    padding: 0.5rem 0;
 }
 
 .error {

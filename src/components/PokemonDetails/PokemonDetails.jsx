@@ -117,6 +117,7 @@ function PokemonDetails({ pokemonName }) {
 
             <div className={style.secondContainer}>
                 <div className={style.pokemonStats}>
+                    <div className={style.sectionTitle}>Base Stats</div>
                     <div className={style.stat}>
                         Health: {pokemon?.stats?.[0]?.base_stat || 0}
                     </div>
@@ -165,9 +166,9 @@ function PokemonDetails({ pokemonName }) {
                         <div className={style.sectionTitle}>Evolution Chain</div>
                         <div className={style.evolutionChain}>
                             {evolutionChain.map((evo, index) => (
-                                <div key={index} className={style.evolutionItem}>
+                                <div key={index}>
                                     <button
-                                        className={`${style.evolutionName} ${evo.name === pokemon?.name ? style.currentEvolution : ''}`}
+                                        className={`${style.evolutionItem} ${evo.name === pokemon?.name ? style.currentEvolution : ''}`}
                                         onClick={() => {
                                             if (evo.name !== pokemon?.name) {
                                                 window.location.hash = `#${evo.name}`;
@@ -178,10 +179,19 @@ function PokemonDetails({ pokemonName }) {
                                         }}
                                         disabled={evo.name === pokemon?.name}
                                     >
-                                        {evo.name.charAt(0).toUpperCase() + evo.name.slice(1)}
+                                        {(isShiny ? evo.shinySprite : evo.sprite) && (
+                                            <img 
+                                                src={isShiny ? evo.shinySprite : evo.sprite} 
+                                                alt={evo.name}
+                                                className={style.evolutionSprite}
+                                            />
+                                        )}
+                                        <span className={style.evolutionName}>
+                                            {evo.name.charAt(0).toUpperCase() + evo.name.slice(1)}
+                                        </span>
                                     </button>
                                     {index < evolutionChain.length - 1 && (
-                                        <span className={style.evolutionArrow}>→</span>
+                                        <div className={style.evolutionArrow}>↓</div>
                                     )}
                                 </div>
                             ))}

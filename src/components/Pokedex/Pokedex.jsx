@@ -34,7 +34,7 @@ function Pokedex() {
                 <div className={style.input}>
                 <input
                         className={style.searchBar}
-                        placeholder='Enter a Pokemon name...'
+                        placeholder='Treecko'
                         value={userInput}
                         onChange={(e) => setUserInput(e.target.value)}
                     />
