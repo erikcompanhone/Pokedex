@@ -1,4 +1,4 @@
-# 🎮 Pokédex# React + Vite
+# Pokédex# React + Vite
 
 
 
@@ -6,21 +6,21 @@ A modern, professional Pokédex application built with React and Vite, featuring
 
 
 
-🌐 **Live Demo**: [pokedex.erikcompanhone.com](https://pokedex.erikcompanhone.com)
+**Live Demo**: [pokedex.erikcompanhone.com](https://pokedex.erikcompanhone.com)
 
 
-## ✨ Features
+## Features
 
-- 🔍 **Real-time Search** - Search for any Pokémon by name
-- 📊 **Detailed Stats** - View HP, Attack, Defense, Speed, and more
-- 🎨 **Type Icons** - Visual representation of Pokémon types
-- 📝 **Pokédex Descriptions** - Official Pokédex entries
-- ⚡ **Fast Performance** - Built with Vite for lightning-fast builds
-- 🎯 **Error Handling** - Graceful error states and loading indicators
-- 📱 **Responsive Design** - Works on all device sizes
-- 🔒 **Secure** - Includes security headers and best practices
+- **Real-time Search** - Search for any Pokémon by name
+- **Detailed Stats** - View HP, Attack, Defense, Speed, and more
+- **Type Icons** - Visual representation of Pokémon types
+- **Pokédex Descriptions** - Official Pokédex entries
+- **Fast Performance** - Built with Vite for lightning-fast builds
+- **Error Handling** - Graceful error states and loading indicators
+- **Responsive Design** - Works on all device sizes
+- **Secure** - Includes security headers and best practices
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **React 18** - Modern React with hooks
@@ -36,7 +36,7 @@ A modern, professional Pokédex application built with React and Vite, featuring
 - **ESLint** - Code linting and quality
 - **Git** - Version control
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 pokedex/
@@ -72,7 +72,7 @@ pokedex/
 └── vite.config.js              # Vite configuration
 ```
 
-## 🔧 Configuration Files
+## Configuration Files
 
 ### `vercel.json`
 Configures Vercel deployment with:
